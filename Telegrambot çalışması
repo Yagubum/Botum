@@ -1,0 +1,31 @@
+
+
+```python
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, CallbackContext
+
+def send_to_page(update: Update, context: CallbackContext) -> None:
+    user_id = update.message.from_user.id
+
+    # Kanalın kullanıcı adını ve mesajı oluşturulan bağlantıyla birlikte ekleyin
+    page_username = '@SahibeBerill'
+    message = f"Sayfaya gitmek için [buraya tıklayın]({page_username})"
+
+    # Kullanıcıya mesajı gönder
+    context.bot.send_message(chat_id=user_id, text=message, parse_mode='MarkdownV2')
+
+def main() -> None:
+    # Telegram botunuzun API anahtarını buraya ekleyin
+    TOKEN = '6626582037:AAEUnkDsi--St8Lp0ZOegYV21-yHISxa-S0'
+
+    updater = Updater(TOKEN)
+    dp = updater.dispatcher
+
+    dp.add_handler(CommandHandler("send_to_page", send_to_page))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
+```
